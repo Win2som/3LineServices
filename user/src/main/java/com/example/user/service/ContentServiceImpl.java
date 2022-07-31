@@ -5,6 +5,7 @@ import com.example.user.dto.CreateContentRequest;
 import com.example.user.entity.Content;
 import com.example.user.entity.User;
 import com.example.user.exception.ResourceAlreadyExistException;
+import com.example.user.exception.ResourceNotFoundException;
 import com.example.user.repository.ContentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,23 @@ public class ContentServiceImpl implements ContentService{
 
        return new ResponseEntity<>("Content created", HttpStatus.CREATED);
 
+    }
+
+    @Override
+    public ResponseEntity<Content> getContent(String title) {
+        log.info(title);
+        log.info(title);
+        log.info(title);
+        log.info("conttent contenet");
+        log.info("conttent contenet");
+        Content content = contentRepository.findByTitle(title);
+        if(content == null){
+            try {
+                throw new ResourceNotFoundException("Content by "+title+ " does not exist");
+            } catch (ResourceNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return new ResponseEntity<>(content, HttpStatus.OK);
     }
 }

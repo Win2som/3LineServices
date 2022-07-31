@@ -1,15 +1,13 @@
 package com.example.user.controller;
 
 import com.example.user.dto.CreateContentRequest;
+import com.example.user.entity.Content;
 import com.example.user.exception.ResourceAlreadyExistException;
 import com.example.user.service.ContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,4 +28,9 @@ public class ContentController {
     //viewAllContents
     //view content by content creator
     //edit
+
+    @GetMapping("")
+    public ResponseEntity<Content> getContent(@RequestParam(name = "title") String title) throws ResourceAlreadyExistException {
+        return contentService.getContent(title);
+    }
 }

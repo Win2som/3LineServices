@@ -66,5 +66,4 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         return new BCryptPasswordEncoder();
     }
 
-
 }

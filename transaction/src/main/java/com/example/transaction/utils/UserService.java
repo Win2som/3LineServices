@@ -53,11 +53,11 @@ public class UserService {
 
 
     public Content readContent(String title, HttpServletRequest request) {
-        String finalUrl = readContentUrl + title;
+        String newUrl = readContentUrl + title;
 
         HttpEntity<HttpHeaders> jwtEntity = new HttpEntity<>(getHeaders(request));
 
-        ResponseEntity<Content> content = restTemplate.exchange(finalUrl, HttpMethod.GET, jwtEntity,
+        ResponseEntity<Content> content = restTemplate.exchange(newUrl, HttpMethod.GET, jwtEntity,
                 Content.class);
 
         return (content.getStatusCode() == HttpStatus.OK) ? content.getBody() : null;

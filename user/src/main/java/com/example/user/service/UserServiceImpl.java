@@ -38,23 +38,31 @@ public class UserServiceImpl implements UserService{
 
 public ResponseEntity<String> createUser(CreateUserRequest userRequest) throws ResourceAlreadyExistException {
 
-    if (userRepository.existsByEmail(userRequest.getEmail())) {
-        throw new ResourceAlreadyExistException("User already exist");
+
+        if (userRepository.existsByEmail(userRequest.getEmail())) {
+            throw new ResourceAlreadyExistException("User already exist");
+        }
+
+        User user = userUtility.from(userRequest);
+        user.setRoles(getRole(RoleType.CONSUMER));
+
+        User savedUser;
+        try{
+                savedUser= userRepository.save(user);
+
+        UserPayload payload = UserPayload.builder()
+                .firstName(savedUser.getFirstName())
+                .email(savedUser.getEmail())
+                .id(savedUser.getId())
+                .build();
+        //Call notification service to send mail with payload
+        rabbitMQMessageProducer.publish(payload, "internal.notification.routing-key",
+                "internal.exchange");
     }
 
-    User user = userUtility.from(userRequest);
-    user.setRoles(getRole(RoleType.CONSUMER));
-
-    User savedUser = userRepository.save(user);
-
-    UserPayload payload = UserPayload.builder()
-            .firstName(savedUser.getFirstName())
-            .email(savedUser.getEmail())
-            .id(savedUser.getId())
-            .build();
-    //Call notification service to send mail with payload
-    rabbitMQMessageProducer.publish(payload, "internal.notification.routing-key",
-            "internal.exchange");
+    catch(Exception e){
+        log.error(e.getMessage());
+    }
 
     return new ResponseEntity<>("Consumer created", HttpStatus.CREATED);
 
@@ -70,7 +78,9 @@ public ResponseEntity<String> createUser(CreateUserRequest userRequest) throws R
         User user = userUtility.from(userRequest);
         user.setRoles(getRole(RoleType.CONTENT_CREATOR));
 
-        User savedUser = userRepository.save(user);
+        User savedUser;
+        try{
+                savedUser= userRepository.save(user);
 
         UserPayload payload = UserPayload.builder()
                 .firstName(savedUser.getFirstName())
@@ -81,20 +91,15 @@ public ResponseEntity<String> createUser(CreateUserRequest userRequest) throws R
         //Call notification service to send mail with payload
         rabbitMQMessageProducer.publish(payload, "internal.notification.routing-key",
                 "internal.exchange");
+        }
 
+        catch(Exception e){
+            log.error(e.getMessage());
+        }
         return new ResponseEntity<>("Content Creator created", HttpStatus.CREATED);
 
     }
 
-
-
-//    private Role getRole(RoleType roleType) {
-//        Optional<Role> optionalRole = roleRepository.findByName(roleType.name());
-//        return optionalRole
-//                .orElseGet(() -> roleRepository.save(Role.builder()
-//                        .title(roleType.name())
-//                        .build()));
-//    }
 
     private Set<Role> getRole(RoleType roleType) {
         Optional<Role> optionalRole = roleRepository.findByTitle(roleType.name());
@@ -136,6 +141,7 @@ public ResponseEntity<String> createUser(CreateUserRequest userRequest) throws R
         }
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
+
 
     @Override
     public ResponseEntity<String> walletBalanceUpdate(User user, Long id) throws CustomException {

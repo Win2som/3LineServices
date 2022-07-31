@@ -10,7 +10,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+    show-sql: true
+    defer-datasource-initialization: true
+
+
   datasource:
     url: "jdbc:mysql://localhost:3306/users_db"
     username: root

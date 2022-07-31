@@ -40,7 +40,6 @@ public class User extends Base implements UserDetails {
     private String password;
     @Column(nullable = false)
     private boolean enabled = false;
-
     @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime createdTime;
@@ -48,9 +47,6 @@ public class User extends Base implements UserDetails {
     @UpdateTimestamp
     private LocalDateTime modifiedTime;
 
-//    @OneToOne
-//    @JoinColumn(name = "role_id")
-//    private Role role;
 
     @ManyToMany
     @JoinTable(
