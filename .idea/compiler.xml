@@ -11,12 +11,16 @@
         <module name="user" />
         <module name="transaction" />
         <module name="amqp" />
+        <module name="service-registry" />
+        <module name="cloud-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="amqp" target="17" />
+      <module name="cloud-gateway" target="17" />
       <module name="demo" target="17" />
       <module name="notification" target="17" />
+      <module name="service-registry" target="17" />
       <module name="transaction" target="17" />
       <module name="user" target="17" />
       <module name="user (1)" target="17" />
@@ -25,8 +29,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="amqp" options="-parameters" />
+      <module name="cloud-gateway" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="notification" options="-parameters" />
+      <module name="service-registry" options="-parameters" />
       <module name="transaction" options="-parameters" />
       <module name="user" options="-parameters" />
       <module name="user (1)" options="-parameters" />
