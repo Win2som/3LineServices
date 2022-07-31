@@ -1,0 +1,27 @@
+server:
+  servlet:
+    context-path : /api/v1
+  error:
+    include-message: always
+    include-binding-errors: always
+spring:
+  application:
+    name: USER-SERVICE
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: "jdbc:mysql://localhost:3306/users_db"
+    username: root
+    password: chisom123
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
+secret: Hexdert687sdfghujikol;0w
+
+logging:
+  level:
+    org.springframework.web: DEBUG

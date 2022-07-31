@@ -1,0 +1,35 @@
+server:
+  port: 8082
+  servlet:
+    context-path : /api/v1
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  application:
+    name: TRANSACTION-SERVICE
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: "jdbc:mysql://localhost:3306/transactions_db"
+    username: root
+    password: chisom123
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
+
+read-user-url: http://localhost:8080/api/v1/user/get?accountNum=
+update-user-url: http://localhost:8080/api/v1/user/
+read-content-url: http://localhost:8080/api/v1/content
+
+admin_account: 0987654321
+subadmin_account: 1234567890
+
+jwt:
+  token:
+    secret: Hexdert687sdfghujikol;0w
