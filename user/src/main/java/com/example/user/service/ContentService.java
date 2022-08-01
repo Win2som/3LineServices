@@ -1,5 +1,6 @@
 package com.example.user.service;
 
+import com.example.user.dto.CatalogueResponse;
 import com.example.user.dto.CreateContentRequest;
 import com.example.user.entity.Catalogue;
 import com.example.user.entity.Content;
@@ -12,7 +13,7 @@ public interface ContentService {
 
     ResponseEntity<Content> getContent(String title);
 
-    ResponseEntity<Catalogue> getCatalogue(String title) throws ResourceNotFoundException;
+    ResponseEntity<CatalogueResponse> getCatalogue(String title) throws ResourceNotFoundException;
 
     ResponseEntity<String> addCatalogue(Long id);
 }

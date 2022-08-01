@@ -52,6 +52,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .antMatchers("/user/create_content_creator").permitAll()
                     .antMatchers("/auth/**").permitAll()
                     .antMatchers("/user/enable/**").permitAll()
+                    .antMatchers("/swagger-ui/**",
+                            "/swagger-resources/**", "/swagger-ui/").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .exceptionHandling().and()

@@ -1,5 +1,6 @@
 package com.example.user.controller;
 
+import com.example.user.dto.CatalogueResponse;
 import com.example.user.dto.CreateContentRequest;
 import com.example.user.entity.Catalogue;
 import com.example.user.entity.Content;
@@ -37,7 +38,7 @@ public class ContentController {
     }
 
     @GetMapping("/catalogue")
-    public ResponseEntity<Catalogue> getCatalogue(@RequestParam(name = "title") String title) throws ResourceAlreadyExistException, ResourceNotFoundException {
+    public ResponseEntity<CatalogueResponse> getCatalogue(@RequestParam(name = "title") String title) throws ResourceAlreadyExistException, ResourceNotFoundException {
         return contentService.getCatalogue(title);
     }
 

@@ -160,7 +160,7 @@ class UserServiceImplTest {
 
 
         ResponseEntity<String> actualCreateUserResult = userServiceImpl.createContentCreator(createUserRequest);
-        assertEquals("Consumer created", actualCreateUserResult.getBody());
+        assertEquals("Content Creator created", actualCreateUserResult.getBody());
         assertEquals(HttpStatus.CREATED, actualCreateUserResult.getStatusCode());
         verify(userRepository).existsByEmail((String) any());
         verify(userRepository).save((User) any());

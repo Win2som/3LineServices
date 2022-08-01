@@ -1,6 +1,8 @@
 package com.example.user.service;
 
 
+import com.example.user.dto.CatalogueResponse;
+import com.example.user.dto.ContentResponse;
 import com.example.user.dto.CreateContentRequest;
 import com.example.user.entity.Catalogue;
 import com.example.user.entity.Content;
@@ -71,14 +73,23 @@ public class ContentServiceImpl implements ContentService{
     }
 
     @Override
-    public ResponseEntity<Catalogue> getCatalogue(String title) throws ResourceNotFoundException {
+    public ResponseEntity<CatalogueResponse> getCatalogue(String title) throws ResourceNotFoundException {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Catalogue> catalogue = Optional.ofNullable(catalogueRepository.findByUserId(currentUser.getId()));
 
         if(catalogue.isEmpty()){
             throw new ResourceNotFoundException("User does not have a catalogue");
         }
-        return new ResponseEntity<>(catalogue.get(), HttpStatus.OK);
+        CatalogueResponse catalogueResponse = new CatalogueResponse();
+        for(int i = 0; i < catalogue.get().getPurchasedContent().size(); i++) {
+            ContentResponse contentResponse = ContentResponse.builder()
+                    .title(catalogue.get().getPurchasedContent().get(i).getTitle())
+                    .body(catalogue.get().getPurchasedContent().get(i).getBody())
+                    .price(catalogue.get().getPurchasedContent().get(i).getPrice())
+                    .build();
+            catalogueResponse.getOwnedContent().add(contentResponse);
+        }
+        return new ResponseEntity<>(catalogueResponse, HttpStatus.OK);
     }
 
     @Override
@@ -91,16 +102,17 @@ public class ContentServiceImpl implements ContentService{
             Optional<Content> content = contentRepository.findById(id);
             content.ifPresent(value -> catalogue.get().getPurchasedContent().add(value));
             catalogueRepository.save(catalogue.get());
-        }
+        }else {
 
-        List<Content> purchasedContents = new ArrayList<>();
-        Optional<Content> content = contentRepository.findById(id);
-        content.ifPresent(purchasedContents::add);
-        Catalogue newCatalogue = Catalogue.builder()
-                .purchasedContent(purchasedContents)
-                .user(currentUser)
-                .build();
-        catalogueRepository.save(newCatalogue);
+            List<Content> purchasedContents = new ArrayList<>();
+            Optional<Content> content = contentRepository.findById(id);
+            content.ifPresent(purchasedContents::add);
+            Catalogue newCatalogue = Catalogue.builder()
+                    .purchasedContent(purchasedContents)
+                    .user(currentUser)
+                    .build();
+            catalogueRepository.save(newCatalogue);
+        }
         return null;
     }
 }

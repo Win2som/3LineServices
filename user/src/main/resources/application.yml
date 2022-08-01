@@ -24,7 +24,7 @@ spring:
     password: chisom123
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher
+      matching-strategy: ANT_PATH_MATCHER
 
 
 secret: Hexdert687sdfghujikol;0w
