@@ -69,7 +69,7 @@ public class UserService {
 
     public void addToCatalogue(Long contentId, HttpServletRequest request) {
         HttpEntity<User> jwtEntity = new HttpEntity<>(getHeaders(request));
-        String addUrl = catalogueUrl + contentId;
+        String addUrl = "http://USER-SERVICE/api/v1/content/catalogue/" + contentId;
 
         restTemplate.exchange(addUrl, HttpMethod.PUT, jwtEntity, Void.class);
     }

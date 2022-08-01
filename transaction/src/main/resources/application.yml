@@ -23,10 +23,10 @@ spring:
 
 
 
-read-user-url: http://localhost:8080/api/v1/user/get?accountNum=
-update-user-url: http://localhost:8080/api/v1/user/
-read-content-url: http://localhost:8080/api/v1/content?title=
-add-catalogue-url: http://localhost:8080/api/v1/content/catalogue/
+read-user-url: http://USER-SERVICE/api/v1/user/get?accountNum=
+update-user-url: http://USER-SERVICE/api/v1/user/
+read-content-url: http://USER-SERVICE/api/v1/content?title=
+add-catalogue-url: http://USER-SERVICE/api/v1/content/catalogue/
 
 admin_account: 0987654321
 subadmin_account: 1234567890

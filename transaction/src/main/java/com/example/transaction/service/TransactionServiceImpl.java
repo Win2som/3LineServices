@@ -102,8 +102,9 @@ public class TransactionServiceImpl implements TransactionService {
             throw new RuntimeException("insufficient balance");
         }
         consumer.getWallet().setBalance(consumer.getWallet().getBalance().subtract(content.getPrice()));
-        userService.updateAccount(consumer, request);
         userService.addToCatalogue(content.getId(), request);
+        userService.updateAccount(consumer, request);
+
 
         log.info("User {} debited by amount: {}",consumer, content.getPrice());
 

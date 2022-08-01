@@ -54,7 +54,7 @@ public class NotificationServiceImpl implements NotificationService{
         public String confirmToken(String token, Long user_id) {
             String confirmationResult = confirmationTokenService.confirmToken(token, user_id);
 
-            String url = "http://localhost:8080/api/v1/user/enable/" + user_id;
+            String url = "http://USER-SERVICE/api/v1/user/enable/" + user_id;
             restTemplate.put(url, user_id, Long.class);
 
             return confirmationResult;
