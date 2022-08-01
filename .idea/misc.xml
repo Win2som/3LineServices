@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/amqp/pom.xml" />
         <option value="$PROJECT_DIR$/service-registry/pom.xml" />
         <option value="$PROJECT_DIR$/cloud-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/cloud-config-server/pom.xml" />
       </list>
     </option>
   </component>

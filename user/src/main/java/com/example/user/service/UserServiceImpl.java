@@ -15,7 +15,6 @@ import com.example.user.repository.RoleRepository;
 import com.example.user.repository.UserRepository;
 import com.example.user.repository.WalletRepository;
 import com.example.user.utils.UserUtility;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
@@ -35,8 +34,16 @@ public class UserServiceImpl implements UserService{
     private final UserUtility userUtility;
     private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, WalletRepository walletRepository, UserUtility userUtility, RabbitMQMessageProducer rabbitMQMessageProducer) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.walletRepository = walletRepository;
+        this.userUtility = userUtility;
+        this.rabbitMQMessageProducer = rabbitMQMessageProducer;
+    }
 
-public ResponseEntity<String> createUser(CreateUserRequest userRequest) throws ResourceAlreadyExistException {
+
+    public ResponseEntity<String> createUser(CreateUserRequest userRequest) throws ResourceAlreadyExistException {
 
 
         if (userRepository.existsByEmail(userRequest.getEmail())) {

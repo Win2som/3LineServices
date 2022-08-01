@@ -158,10 +158,7 @@ public class TransactionServiceImpl implements TransactionService {
         contentCreatorMailRequest.setTransactionType("CREDIT");
         rabbitMQMessageProducer.publish(contentCreatorMailRequest, "internal.notification.routing-key", "internal.exchange");
 
-
-
-
-        return null;
+        return new ResponseEntity<>("Transaction complete",HttpStatus.OK);
 
     }
 

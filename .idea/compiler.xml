@@ -8,15 +8,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="notification" />
+        <module name="cloud-config-server" />
+        <module name="amqp" />
         <module name="user" />
         <module name="transaction" />
-        <module name="amqp" />
         <module name="service-registry" />
         <module name="cloud-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="amqp" target="17" />
+      <module name="cloud-config-server" target="17" />
       <module name="cloud-gateway" target="17" />
       <module name="demo" target="17" />
       <module name="notification" target="17" />
@@ -29,6 +31,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="amqp" options="-parameters" />
+      <module name="cloud-config-server" options="-parameters" />
       <module name="cloud-gateway" options="-parameters" />
       <module name="demo" options="-parameters" />
       <module name="notification" options="-parameters" />
