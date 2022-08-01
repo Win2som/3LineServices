@@ -1,8 +1,10 @@
 package com.example.user.controller;
 
 import com.example.user.dto.CreateContentRequest;
+import com.example.user.entity.Catalogue;
 import com.example.user.entity.Content;
 import com.example.user.exception.ResourceAlreadyExistException;
+import com.example.user.exception.ResourceNotFoundException;
 import com.example.user.service.ContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +34,15 @@ public class ContentController {
     @GetMapping("")
     public ResponseEntity<Content> getContent(@RequestParam(name = "title") String title) throws ResourceAlreadyExistException {
         return contentService.getContent(title);
+    }
+
+    @GetMapping("/catalogue")
+    public ResponseEntity<Catalogue> getCatalogue(@RequestParam(name = "title") String title) throws ResourceAlreadyExistException, ResourceNotFoundException {
+        return contentService.getCatalogue(title);
+    }
+
+    @PutMapping("/catalogue/{id}")
+    public ResponseEntity<String> addCatalogue(@PathVariable("id")Long id){
+        return contentService.addCatalogue(id);
     }
 }

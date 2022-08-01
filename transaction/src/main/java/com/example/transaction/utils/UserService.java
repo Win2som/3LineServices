@@ -29,6 +29,9 @@ public class UserService {
     @Value("${read-content-url}")
     private String readContentUrl;
 
+    @Value("add-catalogue-url")
+    private String catalogueUrl;
+
     public User readUser(String param, HttpServletRequest request){
 
         String finalUrl = readUrl + param;
@@ -61,6 +64,14 @@ public class UserService {
                 Content.class);
 
         return (content.getStatusCode() == HttpStatus.OK) ? content.getBody() : null;
+    }
+
+
+    public void addToCatalogue(Long contentId, HttpServletRequest request) {
+        HttpEntity<User> jwtEntity = new HttpEntity<>(getHeaders(request));
+        String addUrl = catalogueUrl + contentId;
+
+        restTemplate.exchange(addUrl, HttpMethod.PUT, jwtEntity, Void.class);
     }
 
     private HttpHeaders getHeaders(HttpServletRequest request) {

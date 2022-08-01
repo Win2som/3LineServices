@@ -103,6 +103,7 @@ public class TransactionServiceImpl implements TransactionService {
         }
         consumer.getWallet().setBalance(consumer.getWallet().getBalance().subtract(content.getPrice()));
         userService.updateAccount(consumer, request);
+        userService.addToCatalogue(content.getId(), request);
 
         log.info("User {} debited by amount: {}",consumer, content.getPrice());
 
