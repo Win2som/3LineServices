@@ -73,7 +73,7 @@ public class ContentServiceImpl implements ContentService{
     }
 
     @Override
-    public ResponseEntity<CatalogueResponse> getCatalogue(String title) throws ResourceNotFoundException {
+    public ResponseEntity<CatalogueResponse> getCatalogue() throws ResourceNotFoundException {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Catalogue> catalogue = Optional.ofNullable(catalogueRepository.findByUserId(currentUser.getId()));
 
@@ -101,7 +101,7 @@ public class ContentServiceImpl implements ContentService{
         if(catalogue.isPresent()){
             Optional<Content> content = contentRepository.findById(id);
             content.ifPresent(value -> catalogue.get().getPurchasedContent().add(value));
-            catalogueRepository.save(catalogue.get());
+
         }else {
 
             List<Content> purchasedContents = new ArrayList<>();
@@ -113,6 +113,6 @@ public class ContentServiceImpl implements ContentService{
                     .build();
             catalogueRepository.save(newCatalogue);
         }
-        return null;
+        return new ResponseEntity<>("Cat updated", HttpStatus.OK);
     }
 }

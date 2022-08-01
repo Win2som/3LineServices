@@ -3,9 +3,7 @@ package com.example.user.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +13,12 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Catalogue extends Base{
-//    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
-    @OneToMany
+public class Catalogue{
+    @javax.persistence.Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long Id;
+
+    @OneToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Content> purchasedContent = new ArrayList<>();
 

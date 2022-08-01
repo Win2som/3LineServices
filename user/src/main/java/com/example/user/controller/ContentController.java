@@ -38,8 +38,8 @@ public class ContentController {
     }
 
     @GetMapping("/catalogue")
-    public ResponseEntity<CatalogueResponse> getCatalogue(@RequestParam(name = "title") String title) throws ResourceAlreadyExistException, ResourceNotFoundException {
-        return contentService.getCatalogue(title);
+    public ResponseEntity<CatalogueResponse> getCatalogue() throws ResourceNotFoundException {
+        return contentService.getCatalogue();
     }
 
     @PutMapping("/catalogue/{id}")

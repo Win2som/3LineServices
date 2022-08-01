@@ -13,7 +13,7 @@ public interface ContentService {
 
     ResponseEntity<Content> getContent(String title);
 
-    ResponseEntity<CatalogueResponse> getCatalogue(String title) throws ResourceNotFoundException;
+    ResponseEntity<CatalogueResponse> getCatalogue() throws ResourceNotFoundException;
 
     ResponseEntity<String> addCatalogue(Long id);
 }
